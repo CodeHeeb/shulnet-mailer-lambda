@@ -9,4 +9,6 @@ import com.shulnet.mailer.models.Member;
 public interface MemberRepository extends MongoRepository<Member, String> {
 
 	List<Member> findByPortalId(String portal_id);
+	
+	List<Member> findByPortalIdAndEmailOptoutDateIsNull(String portal_id);
 }
