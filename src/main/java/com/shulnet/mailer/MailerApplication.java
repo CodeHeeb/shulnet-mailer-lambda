@@ -59,28 +59,33 @@ public class MailerApplication {
 						String outboundEmailId = detailString.substring(startIndex, startIndex+24);
 						OutboundEmails emailData = oeRepo.findById(outboundEmailId).get();
 						
-						//get our emails
-						List<Member> members = memberRepo.findByPortalIdAndEmailOptoutDateIsNull(emailData.getPortal_id());
-						
 						List<String> emails = new ArrayList<String>();
 						
-						for (Member member : members)
+						//this will send singular emails or individual emails
+						if (emailData.getIsMassEmail())
 						{
-							emails.add(member.getEmail());
-						}
-						
-						//now look for family members to add who have not opted out
-						List<Member> allMembers = memberRepo.findByPortalId(emailData.getPortal_id());
-						
-						for (Member member : allMembers)
-						{
-							List<FamilyMember> familyMembers = fmRepo.findByMemberIdAndEmailOptoutDateIsNull(member.get_id());
-							for (FamilyMember fm : familyMembers)
+							//get our emails
+							List<Member> members = memberRepo.findByPortalIdAndEmailOptoutDateIsNull(emailData.getPortal_id());
+													
+							for (Member member : members)
 							{
-								emails.add(fm.getEmail());
+								emails.add(member.getEmail());
 							}
+							
+							//now look for family members to add who have not opted out
+							List<Member> allMembers = memberRepo.findByPortalId(emailData.getPortal_id());
+							
+							for (Member member : allMembers)
+							{
+								List<FamilyMember> familyMembers = fmRepo.findByMemberIdAndEmailOptoutDateIsNull(member.get_id());
+								for (FamilyMember fm : familyMembers)
+								{
+									emails.add(fm.getEmail());
+								}
+							}
+						} else {
+							emails.add(emailData.getEmailTo());
 						}
-						
 						//get our portal settings for mailgun settings
 						Portal portalDetails = portalRepo.findById(emailData.getPortal_id()).get();
 						

@@ -19,13 +19,17 @@ public class OutboundEmails {
 	
 	private String portal_id;
 	
+	private Boolean is_mass_email;
+	
+	private String email_to;
+	
 	private Date send_date;
 	
 	private Date createdAt;
 	
 	private Date updatedAt;
 	
-	public OutboundEmails(String _id, String email_subject, String email_html_body, String email_text_body, String portal_id, Date send_date, Date createdAt, Date updatedAt)
+	public OutboundEmails(String _id, String email_subject, String email_html_body, String email_text_body, String portal_id, Date send_date, Date createdAt, Date updatedAt, Boolean is_mass_email, String email_to)
 	{
 		this._id = _id;
 		this.email_subject = email_subject;
@@ -35,13 +39,15 @@ public class OutboundEmails {
 		this.send_date = send_date;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
+		this.is_mass_email = is_mass_email;
+		this.email_to = email_to;
 	}
 	
 	@Override
 	public String toString() {
 		return String.format(
-				"{ '_id' : '%s', 'email_subject': '%s', 'email_html_body': '%s', 'email_text'body': '%s', 'portal_id': '%s', 'send_date': '%s', 'createdAt': '%s', 'updatedAt': '%s' }",
-				_id, email_subject, email_html_body, email_text_body, portal_id, send_date, createdAt, updatedAt);
+				"{ '_id' : '%s', 'email_subject': '%s', 'email_html_body': '%s', 'email_text'body': '%s', 'portal_id': '%s', 'send_date': '%s', 'createdAt': '%s', 'updatedAt': '%s', 'is_mass_email': %s, 'email_to': '%s' }",
+				_id, email_subject, email_html_body, email_text_body, portal_id, send_date, createdAt, updatedAt, is_mass_email, email_to);
 	}
 
 	public String get_id() {
@@ -111,4 +117,25 @@ public class OutboundEmails {
 	{
 		this.updatedAt = updatedAt;
 	}
+	
+	public Boolean getIsMassEmail()
+	{
+		return is_mass_email;
+	}
+	
+	public void setIsMassEmail(Boolean is_mass_email)
+	{
+		this.is_mass_email = is_mass_email;
+	}
+	
+	public String getEmailTo()
+	{
+		return email_to;
+	}
+	
+	public void setEmailTo(String email_to)
+	{
+		this.email_to = email_to;
+	}
+	
 }
