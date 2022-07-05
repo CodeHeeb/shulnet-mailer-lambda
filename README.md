@@ -11,6 +11,13 @@ For further reference, please consider the following sections:
 * [Spring Data MongoDB](https://docs.spring.io/spring-boot/docs/2.7.0/reference/htmlsingle/#boot-features-mongodb)
 * [Function](https://docs.spring.io/spring-cloud-function/docs/current/reference/html/spring-cloud-function.html)
 
+### Creating AWS Package
+Because we have the Maven Shade plugin in this package, it will create two JAR files, one titled as *-aws.jar.  This is the one you will load for AWS Lambda.
+
+```console
+mvn package
+```
+
 ### Guides
 The following guides illustrate how to use some features concretely:
 
